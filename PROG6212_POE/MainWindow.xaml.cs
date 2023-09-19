@@ -37,41 +37,27 @@ namespace PROG6212_POE
             InitializeComponent();
         }
 
-        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
-        }
+     
 
         private void Exit_Click(object sender, RoutedEventArgs e)
         {
             System.Environment.Exit(0);
         }
 
-        //testing display button
-        private void displayButton_Click(object sender, RoutedEventArgs e)
-        {
-            // Retrieve data from the form controls
-            // string numberOfWeeks = SemesterWeeksTextBox.Text;
-            //DateTime startDate = semesterStartDate.SelectedDate ?? DateTime.MinValue; // Get selected date or a default value
-
-            // outputListview.ItemsSource = moduleDataList;
-            // You can now use 'semesterWeeksValue' and 'semesterStartDateValue' as needed
-            Microsoft.VisualBasic.Interaction.MsgBox($"Semester Weeks: {semesterWeeksValue}\nSemester Start Date: {semesterStartDateValue}");
-
-            // You can now use 'numberOfWeeks' and 'startDate' as needed, e.g., display or process them
-        }
+      
 
 
         //save button functionality
         private void button_Click(object sender, RoutedEventArgs e)
         {
+            try
+            {
 
-
-            ModuleData moduleInfo = new ModuleData();
+                ModuleData moduleInfo = new ModuleData();
             semesterData semesterInfo = new semesterData();
 
-            int semesterWeeks = Convert.ToInt32(Microsoft.VisualBasic.Interaction.InputBox("Please enter your semester weeks"));
-            string customDate = Microsoft.VisualBasic.Interaction.InputBox($"Please enter the semester start date.");
+            int semesterWeeks = Convert.ToInt32(Microsoft.VisualBasic.Interaction.InputBox("Please enter your semester weeks","Semester Weeks Input"));
+            string customDate = Microsoft.VisualBasic.Interaction.InputBox($"Please enter the semester start date (YYYY-MM-DD).","Semester start date input");
 
             DateTime semesterStartDate = Convert.ToDateTime(customDate);
 
@@ -80,35 +66,27 @@ namespace PROG6212_POE
             double ModuleCredit = Convert.ToDouble(modulecredits.Text);
             double classHours = Convert.ToDouble(modulehours.Text);
 
-
-
-
-
-            Microsoft.VisualBasic.Interaction.MsgBox($"Sample data Module code: {ModuleCode}\n Module Name: {ModuleName}\n Module Credit: {ModuleCredit}\nModule Hours: {classHours}");
             //set the variable names
             moduleInfo.setModuleCode(ModuleCode);
             moduleInfo.setModuleName(ModuleName);
             moduleInfo.setModuleCredits(ModuleCredit);
             moduleInfo.setClassHours(classHours);
 
-            //adding the collected data to the array list
-            moduleInfo.ModuleNames.Add(ModuleName);
+            
+            moduleInfo.ModuleNames.Add(ModuleName);//adding the collected data to the array list of the custom class library
             moduleInfo.ModuleCredits.Add(ModuleCredit);
             moduleInfo.ClassHours.Add(classHours);
             moduleInfo.ModuleCodes.Add(ModuleCode);
-            Microsoft.VisualBasic.Interaction.MsgBox($"Sample data FROM THE STORED MODULE LIST Module code: {moduleInfo.ModuleCodes.ElementAt(0)}\n Module Name: {moduleInfo.ModuleNames.ElementAt(0)}\n Module Credit: {moduleInfo.ModuleCredits.ElementAt(0)}\nModule Hours: {moduleInfo.ClassHours.ElementAt(0)}");
+ 
 
-
-
-            //adding semester functionality for testing purpose
+           
        
             semesterInfo.setSemesterStartDate(semesterStartDate);//setting the semester variables
             semesterInfo.setSemesterWeeks(semesterWeeks);
 
             semesterInfo.SemesterWeeks.Add(semesterWeeks);//adding the semester variables to the list
             semesterInfo.SemesterStartDates.Add(semesterStartDate);
-            Microsoft.VisualBasic.Interaction.MsgBox($"Sample data FROM THE STORED semester LIST Module code: {semesterInfo.SemesterWeeks.ElementAt(0)}\n Module Name: {semesterInfo.SemesterStartDates.ElementAt(0)}");
-            outputListview.ItemsSource = moduleDataList;
+           //
 
 
 
@@ -116,11 +94,11 @@ namespace PROG6212_POE
                
             
             //THIS WILL ALLOW USERS TO ADD NUMBERS OF HOURS WORKING ON A certain module on a SPECIFIC DATE
-                string dateStr = Microsoft.VisualBasic.Interaction.InputBox("Please enter the date of study (YYYY-MM-DD) or leave blank to stop recording hours for this module:");
+                string dateStr = Microsoft.VisualBasic.Interaction.InputBox("Please enter the date of study (DD-MM-YYYY) for this module:");
            
             if (string.IsNullOrEmpty(dateStr))
             {
-                MessageBox.Show("Date cannot be empty.");
+                MessageBox.Show("Date cannot be empty.","Date Notification");
             }
             else
             {//if the date is not empty prompt the user for studyHours
@@ -130,7 +108,7 @@ namespace PROG6212_POE
                 if (DateTime.TryParse(dateStr, out DateTime currentStudyDate))
                 {
                     moduleInfo.setStudyDate(currentStudyDate);//this will set the current module study date
-                     studyHours = Convert.ToDouble(Microsoft.VisualBasic.Interaction.InputBox($"Please enter the number of study hours for {ModuleName} on {currentStudyDate.ToShortDateString()}:"));
+                     studyHours = Convert.ToDouble(Microsoft.VisualBasic.Interaction.InputBox($"Please enter the number of study hours for {ModuleName} on {currentStudyDate.ToShortDateString()}:","Study hours input"));
                         moduleInfo.setStudyHour(studyHours);
                     moduleInfo.studyHoursAdd(currentStudyDate, studyHours);//this will add the study date and hours to the studydate and hours dictionary
 
@@ -156,17 +134,11 @@ namespace PROG6212_POE
                 }
 
             }
-            /*      //adding the module information to the list
-                  moduleDataList.Add(new ModuleData
-                  {
-                      moduleCode = moduleInfo.getModuleCode(),
-                      moduleName = moduleInfo.getModuleName(),
-                      selfStudyHours = totalSelfStudyhrs,//fix this calculation
-                      studyDate = currentStudyDate,
-                  }) ;
-*/
+                MessageBox.Show("Module data was successfully saved.","Module data Notification");
 
-
+            }
+            catch(Exception ex) 
+            { Console.WriteLine("An exception has occured while saving module data." + ex.Message); }
 
 
               }
@@ -232,5 +204,9 @@ namespace PROG6212_POE
 
         }
 
+        private void button1_Click(object sender, RoutedEventArgs e)
+        {
+            outputListview.ItemsSource = moduleDataList;
+        }
     }
 }

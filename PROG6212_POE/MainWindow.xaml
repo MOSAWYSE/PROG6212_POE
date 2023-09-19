@@ -5,8 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PROG6212_POE"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid Background="LightGray">
+        Title="MainWindow" Height="543" Width="794">
+    <Grid Background="LightGray" Margin="0,0,0,-16">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
@@ -18,29 +18,36 @@
                 <MenuItem Header="Exit" Click="Exit_Click"/>
             </MenuItem>
         </Menu>
-        <Viewbox Margin="-27,22,19,0" Grid.RowSpan="3" Grid.Row="1">
-            <!-- stackpanel of the whole software content -->
-            <StackPanel HorizontalAlignment="Center" Height="305" Width="470">
+        <Viewbox Margin="-4,5,-4,17" Grid.RowSpan="3" Grid.Row="1" VerticalAlignment="Top" OpacityMask="#FFDAD1D1">
+            <!-- stackpanel of the main controls -->
+            <StackPanel HorizontalAlignment="Center" Width="629" Background="#FF585858" Height="397">
+                <StackPanel>
+                    <Label HorizontalAlignment="Center" FontFamily="Bahnschrift SemiBold" FontSize="16" Foreground="#FFF9E2E2">Time Management System</Label>
+                </StackPanel>
+                <WrapPanel Orientation="Horizontal">
+                    <Label Content="MODULE DETAILS:" HorizontalAlignment="Center" VerticalAlignment="Center" Width="110" Foreground="WhiteSmoke" FontFamily="Bahnschrift SemiBold" VerticalContentAlignment="Center"/>
+                </WrapPanel>
                 <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
-                    <Label Content="Code:" HorizontalAlignment="Right" VerticalAlignment="Center" Width="80"/>
+                    <Label Content="Code:" HorizontalAlignment="Right" VerticalAlignment="Center" Width="80" Foreground="WhiteSmoke"/>
                     <TextBox x:Name="modulecode" Width="200" Height="17"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
-                    <Label Content="Name:" HorizontalAlignment="Right" VerticalAlignment="Center" Width="80"/>
+                    <Label Content="Name:" HorizontalAlignment="Right" VerticalAlignment="Center" Width="80" Foreground="White"/>
                     <TextBox x:Name="modulename" Width="200" Height="17"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
-                    <Label Content="Number of Credits:" HorizontalAlignment="Right" VerticalAlignment="Center" Width="150"/>
+                    <Label Content="Number of Credits:" HorizontalAlignment="Right" VerticalAlignment="Center" Width="150" Foreground="White"/>
                     <TextBox x:Name="modulecredits" Width="130" Height="17"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
-                    <Label Content="Class Hours per Week:" HorizontalAlignment="Right" VerticalAlignment="Center" Width="150"/>
+                    <Label Content="Class Hours per Week:" HorizontalAlignment="Right" VerticalAlignment="Center" Width="150" Foreground="White"/>
                     <TextBox x:Name="modulehours" Width="130" Height="17"/>
                 </StackPanel>
                 <Button x:Name="button" Content="Save Module" HorizontalAlignment="Center" Margin="0,20,0,0" Click="button_Click"/>
-                <StackPanel Orientation="Horizontal" Margin="0,10,0,0"/>
+                <Button x:Name="button1" Content="Display Data" HorizontalAlignment="Center" Click="button1_Click"/>
+                <StackPanel x:Name="semesterDetails"  Orientation="Vertical" Margin="0,10,0,0"/>
 
-                <ListView x:Name="outputListview" Height="auto" Width="462">
+                <ListView x:Name="outputListview" Height="142" Width="625">
                     <ListView.View>
                         <GridView>
                             <GridViewColumn Header="Module Code" Width="100" DisplayMemberBinding="{Binding moduleCode}" />
@@ -50,6 +57,7 @@
                         </GridView>
                     </ListView.View>
                 </ListView>
+
 
             </StackPanel>
         </Viewbox>
