@@ -203,10 +203,16 @@ namespace PROG6212_POE
 
 
         }
-
+        //this is the display button method
         private void button1_Click(object sender, RoutedEventArgs e)
         {
-            outputListview.ItemsSource = moduleDataList;
+            try
+            {
+                outputListview.ItemsSource = moduleDataList;
+            }catch(Exception ex)
+                {
+                MessageBox.Show($"An exception occured while displaying module data: {ex.Message}");
+            }
         }
     }
 }
